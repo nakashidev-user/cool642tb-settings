@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>cool642tb-mini キーマップ</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    padding: 24px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .tab:hover { border-color: #4ade80; color: #e2e8f0; }
+  .tab.active {
+    border-color: #4ade80;
+    background: #14532d;
+    color: #4ade80;
+  }
+  .keyboard-wrap {
+    display: none;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .keyboard-wrap.active { display: block; }
+  .keyboard {
+    position: relative;
+    height: 300px;
+    width: 860px;
+  }
+  .key {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    text-align: center;
+    color: #e2e8f0;
+    transition: background 0.15s;
+    overflow: hidden;
+    padding: 4px;
+  }
+  .key.trans {
+    background: #0a0f1a;
+    border-color: #1e293b;
+    color: #334155;
+  }
+  .key.lt {
+    border-color: #7c3aed;
+    background: #1e1b4b;
+  }
+  .key.lt .sub {
+    color: #a78bfa;
+    font-size: 0.6rem;
+    background: #2e1065;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-top: 2px;
+    display: block;
+  }
+  .key.modifier {
+    border-color: #0369a1;
+    background: #0c1a2e;
+    color: #7dd3fc;
+  }
+  .key.special {
+    border-color: #d97706;
+    background: #1c1007;
+    color: #fbbf24;
+  }
+  .key.bt {
+    border-color: #065f46;
+    background: #022c22;
+    color: #34d399;
+    font-size: 0.6rem;
+  }
+  .key.combo {
+    outline: 2px solid #f59e0b;
+    outline-offset: -3px;
+  }
+  .key .main { font-size: 0.75rem; font-weight: 600; }
+  .key .sub { font-size: 0.6rem; color: #94a3b8; margin-top: 1px; }
+  .combo-info {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: #1c1007;
+    border: 1px solid #92400e;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #fbbf24;
+  }
+  .combo-info span { color: #f59e0b; font-weight: 600; }
+  .layer-title {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .scroll-wrap { overflow-x: auto; }
+  .note {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: #475569;
+  }
+</style>
+</head>
+<body>
+
+<h1>⌨ cool642tb-mini キーマップ</h1>
+
+<div class="tabs">
+  <button class="tab active" onclick="showLayer('default')">Layer 0: DEFAULT</button>
+  <button class="tab" onclick="showLayer('func')">Layer 1: FUNCTION</button>
+  <button class="tab" onclick="showLayer('num')">Layer 2: NUM</button>
+  <button class="tab" onclick="showLayer('mouse')">Layer 4: MOUSE</button>
+</div>
+
+<div id="default" class="keyboard-wrap active">
+  <div class="layer-title">DEFAULT レイヤー — 通常入力</div>
+  <div class="scroll-wrap"><div class="keyboard" id="kb-default"></div></div>
+  <div class="combo-info">
+    コンボ: <span>D + F</span> → LANG2（英数）&nbsp;&nbsp;|&nbsp;&nbsp;
+    <span>J + K</span> → LANG1（かな）
+  </div>
+  <div class="note">
+    [MOUSE] = ホールドでMOUSEレイヤー / [NUM] = ホールドでNUMレイヤー / [FUNC] = ホールドでFUNCTIONレイヤー
+  </div>
+</div>
+
+<div id="func" class="keyboard-wrap">
+  <div class="layer-title">FUNCTION レイヤー — 数字・記号・ファンクション・矢印</div>
+  <div class="scroll-wrap"><div class="keyboard" id="kb-func"></div></div>
+</div>
+
+<div id="num" class="keyboard-wrap">
+  <div class="layer-title">NUM レイヤー — 記号・Bluetooth設定</div>
+  <div class="scroll-wrap"><div class="keyboard" id="kb-num"></div></div>
+</div>
+
+<div id="mouse" class="keyboard-wrap">
+  <div class="layer-title">MOUSE レイヤー — マウスボタン・ブラウザ操作</div>
+  <div class="scroll-wrap"><div class="keyboard" id="kb-mouse"></div></div>
+</div>
+
+<script>
+// 物理キー位置 (単位: u → px = unit * 62 + offsetX, unit * 62 + offsetY)
+const S = 62; // scale px per unit
+const OX = 4; // x offset
+const OY = 4; // y offset
+
+const positions = [
+  // Row 0 (10 keys)
+  {x:0,     y:0}, // 0  Q
+  {x:1.003, y:0}, // 1  W
+  {x:2.005, y:0}, // 2  E
+  {x:3.008, y:0}, // 3  R
+  {x:4.011, y:0}, // 4  T
+  {x:8.504, y:0}, // 5  Y  (gap between halves)
+  {x:9.506, y:0}, // 6  U
+  {x:10.509,y:0}, // 7  I
+  {x:11.512,y:0}, // 8  O
+  {x:12.514,y:0}, // 9  P
+  // Row 1 (12 keys)
+  {x:0,     y:1}, // 10 A
+  {x:1.003, y:1}, // 11 S
+  {x:2.005, y:1}, // 12 D
+  {x:3.008, y:1}, // 13 F
+  {x:4.011, y:1}, // 14 G
+  {x:5.015, y:1}, // 15 [left inner]
+  {x:7.501, y:1}, // 16 [right inner]
+  {x:8.504, y:1}, // 17 H
+  {x:9.506, y:1}, // 18 J
+  {x:10.509,y:1}, // 19 K
+  {x:11.512,y:1}, // 20 L
+  {x:12.514,y:1}, // 21 ;
+  // Row 2 (12 keys)
+  {x:0,     y:2}, // 22 Shift
+  {x:1.003, y:2}, // 23 Z
+  {x:2.005, y:2}, // 24 X
+  {x:3.008, y:2}, // 25 C
+  {x:4.011, y:2}, // 26 V
+  {x:5.013, y:2}, // 27 B
+  {x:7.501, y:2}, // 28 [right inner]
+  {x:8.504, y:2}, // 29 N
+  {x:9.506, y:2}, // 30 M
+  {x:10.509,y:2}, // 31 ,
+  {x:11.512,y:2}, // 32 .
+  {x:12.514,y:2}, // 33 /
+  // Row 3 (9 keys)
+  {x:0,     y:3}, // 34 Ctrl
+  {x:1.003, y:3}, // 35 Tab
+  {x:2.005, y:3}, // 36 Alt
+  {x:3.008, y:3}, // 37 GUI
+  {x:4.011, y:3}, // 38 BS/layer
+  {x:5.013, y:3}, // 39 Del
+  {x:7.501, y:3}, // 40 Space
+  {x:8.504, y:3}, // 41 Enter/layer
+  {x:12.514,y:3}, // 42 ?/F11/etc
+];
+
+// キー定義: {main, sub, cls, combo}
+// cls: '' | 'trans' | 'lt' | 'modifier' | 'special' | 'bt'
+const T = {main:'▽', cls:'trans'};
+
+const layers = {
+  'default': [
+    // Row 0
+    {main:'Q'}, {main:'W'}, {main:'E'}, {main:'R'}, {main:'T'},
+    {main:'Y'}, {main:'U'}, {main:'I'}, {main:'O'}, {main:'P'},
+    // Row 1
+    {main:'A'}, {main:'S'}, {main:'D', combo:true},
+    {main:'F', sub:'MOUSE', cls:'lt', combo:true},
+    {main:'G'},
+    {main:'Ctrl+Y', cls:'special'},
+    {main:'PrtSc', cls:'special'},
+    {main:'H'}, {main:'J', combo:true}, {main:'K', combo:true},
+    {main:'L'}, {main:';'},
+    // Row 2
+    {main:'Shift', cls:'modifier'},
+    {main:'Z'}, {main:'X'}, {main:'C'}, {main:'V'}, {main:'B'},
+    {main:'Esc', cls:'special'},
+    {main:'N'}, {main:'M'}, {main:','}, {main:'.'}, {main:'/'},
+    // Row 3
+    {main:'Ctrl', cls:'modifier'},
+    {main:'Tab', cls:'modifier'},
+    {main:'Alt', cls:'modifier'},
+    {main:'GUI', cls:'modifier'},
+    {main:'BS', sub:'NUM', cls:'lt'},
+    {main:'Del', cls:'special'},
+    {main:'Space'},
+    {main:'Enter', sub:'FUNC', cls:'lt'},
+    {main:'?'},
+  ],
+  'func': [
+    // Row 0
+    {main:'1'}, {main:'2'}, {main:'3'}, {main:'4'}, {main:'5'},
+    {main:'6'}, {main:'7'}, {main:'8'}, {main:'9'}, {main:'0'},
+    // Row 1
+    {main:'+'}, {main:'-'}, {main:'*'}, {main:'/'}, {main:'='}, {main:'_'},
+    {main:'Home', cls:'special'},
+    {main:'Enter', cls:'special'},
+    {main:'←', cls:'special'}, {main:'↓', cls:'special'},
+    {main:'↑', cls:'special'}, {main:'→', cls:'special'},
+    // Row 2
+    {main:'F1'}, {main:'F2'}, {main:'F3'}, {main:'F4'}, {main:'F5'}, T,
+    T,
+    {main:'F6'}, {main:'F7'}, {main:'F8'}, {main:'F9'}, {main:'F10'},
+    // Row 3
+    T, T, T, T, T, T,
+    T,
+    {main:'▽', cls:'trans'}, // hold key
+    {main:'F11'},
+  ],
+  'num': [
+    // Row 0
+    {main:'!'}, {main:'@'}, {main:'#'}, {main:'$'}, {main:'%'},
+    {main:'^'}, {main:'&'}, {main:'_'}, {main:'~'}, {main:'-'},
+    // Row 1
+    {main:"'"}, {main:'{'}, {main:'['}, {main:'('}, {main:'"'}, {main:'<'},
+    {main:'>', cls:'special'},
+    {main:'"'}, {main:')'}, {main:']'}, {main:'}'}, {main:"'"},
+    // Row 2
+    {main:'BT 0', cls:'bt'}, {main:'BT 1', cls:'bt'},
+    {main:'BT 2', cls:'bt'}, {main:'BT 3', cls:'bt'},
+    {main:'BT 4', cls:'bt'}, T,
+    T,
+    T, T, T,
+    {main:'|'}, {main:'\\'},
+    // Row 3
+    {main:'BTCLR', cls:'bt'}, T, T, T, {main:'▽', cls:'trans'}, T,
+    T,
+    T,
+    T,
+  ],
+  'mouse': [
+    // Row 0
+    T, T, T, T, T,
+    {main:'⌘⇧[', sub:'前タブ', cls:'special'}, T, T, T, {main:'⌘⇧]', sub:'次タブ', cls:'special'},
+    // Row 1
+    T, T, T, T, T, T,
+    T,
+    {main:'⌘[', sub:'戻る', cls:'special'},
+    {main:'MB1', sub:'左Click', cls:'special'},
+    {main:'MB3', sub:'中Click', cls:'special'},
+    {main:'MB2', sub:'右Click', cls:'special'},
+    {main:'⌘]', sub:'進む', cls:'special'},
+    // Row 2
+    T, T, T, T, T, T,
+    T,
+    T, T, T, T, T,
+    // Row 3
+    T, T, T, T, T, T,
+    T,
+    T,
+    T,
+  ],
+};
+
+function buildKeyboard(containerId, layerName) {
+  const container = document.getElementById(containerId);
+  const keys = layers[layerName];
+
+  keys.forEach((k, i) => {
+    const pos = positions[i];
+    const div = document.createElement('div');
+    div.className = 'key ' + (k.cls || '');
+    if (k.combo) div.classList.add('combo');
+
+    div.style.left = (OX + pos.x * S) + 'px';
+    div.style.top  = (OY + pos.y * S) + 'px';
+
+    if (k.sub) {
+      div.innerHTML = `<span class="main">${k.main}</span><span class="sub">${k.sub}</span>`;
+    } else {
+      div.innerHTML = `<span class="main">${k.main}</span>`;
+    }
+
+    container.appendChild(div);
+  });
+
+  // 左右セパレーター線
+  const sep = document.createElement('div');
+  sep.style.cssText = `
+    position: absolute;
+    left: ${OX + 6.25 * S}px;
+    top: ${OY}px;
+    width: 2px;
+    height: ${4 * S - 6}px;
+    background: #1e3a5f;
+    border-radius: 1px;
+  `;
+  container.appendChild(sep);
+}
+
+buildKeyboard('kb-default', 'default');
+buildKeyboard('kb-func',    'func');
+buildKeyboard('kb-num',     'num');
+buildKeyboard('kb-mouse',   'mouse');
+
+function showLayer(name) {
+  document.querySelectorAll('.keyboard-wrap').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
