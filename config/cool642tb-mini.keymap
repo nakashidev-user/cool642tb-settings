@@ -86,7 +86,7 @@
             bindings = <
 &kp C_BRI_DN  &kp C_BRI_UP  &trans  &trans  &trans                      &kp LG(LS(LBKT))  &trans    &trans    &trans    &kp LG(LS(RBKT))
 &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE  &mo SCROLL  &trans  &trans      &trans  &kp LG(LBKT)      &mkp MB1  &mkp MB3  &mkp MB2  &kp LG(RBKT)
-&kp C_PREV    &kp C_PP      &kp C_NEXT  &trans  &trans  &trans      &trans  &trans            &trans    &trans    &trans    &trans
+&kp C_PREV    &kp C_PP      &kp C_NEXT  &trans  &trans  &trans      &trans  &trans            &trans    &trans    &trans    &kp LC(LA(LG(V)))
 &trans        &trans        &trans      &trans  &trans  &trans      &trans  &trans                                          &trans
             >;
         };
